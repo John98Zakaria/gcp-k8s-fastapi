@@ -1,0 +1,14 @@
+{
+    "_output_dir": "/home/jn98zk/PycharmProjects",
+    "_template": "https://github.com/John98Zakaria/cookiecutter-hypermodern-python",
+    "author": "John Sorial",
+    "copyright_year": "2022",
+    "development_status": "Development Status :: 1 - Planning",
+    "email": "contact@jsorial.com",
+    "friendly_name": "GCP FastAPI K8S Deployment",
+    "license": "MIT",
+    "package_name": "gcp_fastapi",
+    "project_name": "gcp-fastapi",
+    "python_version": "3.11",
+    "version": "0.0.1"
+}

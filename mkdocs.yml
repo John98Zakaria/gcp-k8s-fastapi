@@ -1,0 +1,27 @@
+site_name: pytselect2
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs/generate_ref_pages.py
+
+  - mkdocstrings:
+      watch:
+        - src/gcp_fastapi
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+
+theme:
+  name: material
