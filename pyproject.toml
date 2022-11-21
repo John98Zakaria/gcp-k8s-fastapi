@@ -13,7 +13,14 @@ classifiers = [
 python = "^3.11"
 fastapi = "^0.87.0"
 uvicorn = { extras = ["standard"], version = "^0.20.0" }
-uvloop = "^0.17.0"
+uvloop = { version = "^0.17.0", markers = 'sys_platform != "win32"' }
+fastapi-restful = "^0.4.3"
+sqlalchemy = "^1.4.44"
+sqlalchemy-utils = "^0.38.3"
+pydantic = "^1.10.2"
+injector = "^0.20.1"
+aiofiles = "^22.1.0"
+alembic = "^1.8.1"
 
 
 
@@ -37,6 +44,7 @@ mkdocstrings = { extras = ["crystal", "python"], version = "^0.19.0" }
 pymdown-extensions = "^9.5"
 Pygments = "^2.12.0"
 mktestdocs = "^0.2.0"
+sqlalchemy2-stubs = "^0.0.2a29"
 
 
 [tool.taskipy.tasks]

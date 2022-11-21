@@ -12,8 +12,6 @@ COPY pyproject.toml poetry.lock ./
 
 RUN poetry install --only main
 
-RUN echo $PWD && ls
-
 
 FROM python:3.11.0-alpine as DeploymentStage
 ARG AppDIR=/home/app
