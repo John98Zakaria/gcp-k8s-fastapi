@@ -1,6 +1,12 @@
 repos:
   - repo: local
     hooks:
+      - id: check-ast
+        name: check-ast
+        entry: check-ast
+        language: system
+        types: [ python ]
+        require_serial: true
       - id: black
         name: black
         entry: black

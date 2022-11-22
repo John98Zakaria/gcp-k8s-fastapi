@@ -10,6 +10,7 @@ import aiofiles.os
 from packaging.requirements import URI
 
 from users.repositories.abstract_blobstore import IBlobStore
+from users.repositories.abstract_blobstore import T
 
 
 class FileBlobStore(IBlobStore):

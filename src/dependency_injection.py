@@ -1,15 +1,19 @@
-from typing import TypeVar, Type, Callable
+from typing import Callable
+from typing import Type
+from typing import TypeVar
 
-from config import dev_config
-from datastoreage.repository.abstract_blobstore import IBlobStore
-from datastoreage.repository.abstract_tracker import AbstractDataRepository
-from datastoreage.repository.alchemy_repository import DataRepositorySQL
-from datastoreage.repository.file_blobstore import FileBlobStore
-from init_db import create_session_maker_sync, create_engine_sync, SessionFactory
-from injector import Injector, singleton
+from injector import Injector
+from injector import singleton
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
-from validation.services.celery_validation_service import CeleryValidationService
+
+from backend_conf import sql_config
+from sqlalchemymodels.connect_db import SessionFactory
+from sqlalchemymodels.connect_db import create_engine_sync
+from sqlalchemymodels.connect_db import create_session_maker_sync
+from users.services.BasicUserService import BasicUserService
+from users.services.IUserService import IUserService
+
 
 T = TypeVar("T")
 injector = Injector()
@@ -34,12 +38,8 @@ class Injection:
 
     @staticmethod
     def inject():
-        engine = create_engine_sync(dev_config.sqlalchemy_str)
+        engine = create_engine_sync(sql_config.sqlalchemy_str)
         injector.binder.bind(Engine, engine, scope=singleton)
-        async_session_factory: Callable[[], Session] = create_session_maker_sync(engine)
-        injector.binder.bind(SessionFactory, async_session_factory)
-        injector.binder.bind(
-            IBlobStore, FileBlobStore(dev_config.data_store_path), scope=singleton
-        )
-        injector.binder.bind(AbstractDataRepository, DataRepositorySQL)
-        injector.binder.bind(CeleryValidationService, CeleryValidationService)
+        sync_session_factory: Callable[[], Session] = create_session_maker_sync(engine)
+        injector.binder.bind(SessionFactory, sync_session_factory)
+        injector.binder.bind(IUserService, BasicUserService)

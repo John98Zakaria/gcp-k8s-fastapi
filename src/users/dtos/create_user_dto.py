@@ -1,6 +1,7 @@
 import datetime
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
+from pydantic import EmailStr
 
 from general_types.typesafe_representations import Username
 
@@ -10,3 +11,4 @@ class CreateUserDTO(BaseModel):
     birthdate: datetime.date
     email: EmailStr
     first_name: str
+    last_name: str

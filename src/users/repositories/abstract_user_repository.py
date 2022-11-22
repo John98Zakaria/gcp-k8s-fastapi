@@ -2,10 +2,11 @@ from abc import ABC
 from abc import abstractmethod
 
 from general_types.typesafe_representations import Username
+from sqlalchemymodels.DBUserModel import DBUserModel
 from users.dtos.create_user_dto import CreateUserDTO
 
 
-class IUserService(ABC):
+class IUserRepository(ABC):
     @abstractmethod
     def create_user(self, create_user_dto: CreateUserDTO):
         """
@@ -16,6 +17,20 @@ class IUserService(ABC):
 
         Raises:
             UsernameTakenException: if a username is already taken.
+        """
+        pass
+
+    @abstractmethod
+    def get_user(self, username: Username) -> DBUserModel:
+        """
+        Gets a user from the database
+
+        Args:
+            username: username
+        Returns:
+            User if found
+        Raises:
+            UserNotFoundException: If user is not found
         """
         pass
 

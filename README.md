@@ -1,4 +1,4 @@
-# GCP FastAPI K8S Deployment
+# Mini-Twitter-Clone GCP FastAPI K8S Deployment
 
 <!-- badges-begin -->
 
