@@ -7,8 +7,8 @@ from typing import Type
 
 import aiofiles
 import aiofiles.os
-from packaging.requirements import URI
 
+from general_types.typesafe_representations import URI
 from users.repositories.abstract_blobstore import IBlobStore
 from users.repositories.abstract_blobstore import T
 
