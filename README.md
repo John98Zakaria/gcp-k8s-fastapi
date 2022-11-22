@@ -30,14 +30,6 @@
 
 # How to install the project
 
-Just pip install . at the root of this project
-
-```console
-$ pip install gcp-fastapi
-```
-
-# How to develop
-
 Install a python version of your choice using the official installer or conda.\
 [Download](https://python-poetry.org/docs/master/#installing-with-the-official-installer) and install poetry.
 
@@ -48,8 +40,6 @@ Afterwards, run in cmd
 
 ```commandline
 poetry install
-poetry shell
-git init && git add . && git commit -m "feat: Initial Commit"
 pre-commit install --hook-type commit-msg
 ```
 
@@ -59,6 +49,14 @@ To install the pre-commit hooks correctly you need to a commit locally to fetch 
 
 Install new packages with `poetry add <package-name>` \
 install new dev packages with `poetry add -G dev <package-name>`
+
+## Database Migrations
+
+First navigate to src `cd src`
+
+* To crate a migration run `alembic revision --autogenerate -m "<Your Update Message>"`
+* To apply a migration run `alembic upgrade head`
+* To revert to a migration run `alembic downgrade "revision-number"`
 
 # Writing good commit messages
 
