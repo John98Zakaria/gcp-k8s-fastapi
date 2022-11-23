@@ -7,12 +7,20 @@ repos:
         language: system
         types: [ python ]
         require_serial: true
+      - id: isort
+        name: isort
+        entry: isort
+        require_serial: true
+        language: system
+        types_or: [ cython, pyi, python ]
+        args: [ "--filter-files"," --show-config" ]
       - id: autoflake
         name: autoflake
         entry: autoflake
         language: system
         types: [ python ]
         require_serial: true
+
       - id: black
         name: black
         entry: black
@@ -26,13 +34,7 @@ repos:
         language: system
         types: [ python ]
         require_serial: true
-      - id: isort
-        name: isort
-        entry: isort
-        require_serial: true
-        language: system
-        types_or: [ cython, pyi, python ]
-        args: [ "--filter-files" ]
+
 
 
 
