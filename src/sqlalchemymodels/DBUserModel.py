@@ -3,24 +3,19 @@ import uuid
 from typing import List
 
 from pydantic import EmailStr
-from sqlalchemy import Column
-from sqlalchemy import DateTime
-from sqlalchemy import ForeignKey
-from sqlalchemy import func
-from sqlalchemy import select
-from sqlalchemy import text
+from sqlalchemy import Column, DateTime, ForeignKey, func, select, text
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.orm import column_property
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import column_property, relationship
 from sqlalchemy_utils import UUIDType
 
-from general_types.typesafe_representations import GID
-from general_types.typesafe_representations import Username
+from general_types.typesafe_representations import GID, Username
 from sqlalchemymodels.auditing import SQLBase
-from sqlalchemymodels.predifined_types import SQLEmailStr
-from sqlalchemymodels.predifined_types import SQLNameStr
-from sqlalchemymodels.predifined_types import SQLUsernameStr
-from sqlalchemymodels.predifined_types import TweetStr
+from sqlalchemymodels.predifined_types import (
+    SQLEmailStr,
+    SQLNameStr,
+    SQLUsernameStr,
+    TweetStr,
+)
 
 
 def register_user_model():

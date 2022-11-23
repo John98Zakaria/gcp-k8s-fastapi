@@ -12,12 +12,13 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
 from dependency_injection import injector
-from init_db import create_db_async
-from init_db import create_db_sync
-from sqlalchemymodels.connect_db import SessionFactory
-from sqlalchemymodels.connect_db import create_engine_async
-from sqlalchemymodels.connect_db import create_engine_sync
-from sqlalchemymodels.connect_db import create_session_maker_sync
+from init_db import create_db_async, create_db_sync
+from sqlalchemymodels.connect_db import (
+    SessionFactory,
+    create_engine_async,
+    create_engine_sync,
+    create_session_maker_sync,
+)
 
 
 TEST_ROOT = Path(__file__).parent.parent

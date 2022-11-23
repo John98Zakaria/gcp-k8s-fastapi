@@ -9,8 +9,7 @@ import aiofiles
 import aiofiles.os
 
 from general_types.typesafe_representations import URI
-from users.repositories.abstract_blobstore import IBlobStore
-from users.repositories.abstract_blobstore import T
+from users.repositories.abstract_blobstore import IBlobStore, T
 
 
 class FileBlobStore(IBlobStore):

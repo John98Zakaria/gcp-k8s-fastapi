@@ -4,9 +4,10 @@
 # Should run with CWD = repository root.
 
 from pathlib import Path
-from typing import Iterable, Generator
+from typing import Generator, Iterable
 
 import mkdocs_gen_files
+
 
 source_files = sorted(Path("src").rglob("*.py"))
 

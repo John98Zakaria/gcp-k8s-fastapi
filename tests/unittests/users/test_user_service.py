@@ -38,13 +38,13 @@ def test_user_add_remove(subtests, make_user_service):
         last_name="Sorial",
     )
 
-    with subtests.test(msg="Adding a user"):
+    with subtests.test(msg="Adding a tweets"):
         user_service.create_user(user_dto)
 
-    with subtests.test(msg="Adding a user again should fail"):
+    with subtests.test(msg="Adding a tweets again should fail"):
         with pytest.raises(UsernameTakenException):
             user_service.create_user(user_dto)
 
-    with subtests.test(msg="Deleting user should work"):
+    with subtests.test(msg="Deleting tweets should work"):
         user_service.delete_user(user_dto.username)
         user_service.create_user(user_dto)  # <- We can add him back

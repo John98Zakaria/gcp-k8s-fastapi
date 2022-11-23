@@ -4,8 +4,7 @@ from pydantic import EmailStr
 
 from backend_conf import sql_config
 from general_types.typesafe_representations import Username
-from sqlalchemymodels.connect_db import create_engine_sync
-from sqlalchemymodels.connect_db import create_session_maker_sync
+from sqlalchemymodels.connect_db import create_engine_sync, create_session_maker_sync
 from users.dtos.create_user_dto import CreateUserDTO
 from users.repositories.sql_user_repository import SQLUserRepository
 

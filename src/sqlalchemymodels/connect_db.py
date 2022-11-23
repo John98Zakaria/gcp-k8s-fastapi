@@ -2,10 +2,8 @@ from typing import Callable
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
-from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
-from sqlalchemy.orm import sessionmaker, Session
-
-from sqlalchemymodels import init_async_engine
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
+from sqlalchemy.orm import Session, sessionmaker
 
 
 class SessionFactory:
@@ -14,6 +12,11 @@ class SessionFactory:
 
     def __call__(self, *args, **kwargs):
         return self.factory
+
+
+async def init_async_engine(engine_str: str, echo: bool = True):
+    engine = create_async_engine(engine_str, echo=echo, future=True)
+    return engine
 
 
 def create_session_maker_async(engine: AsyncEngine) -> Callable[[], Session]:
@@ -35,11 +38,3 @@ def create_session_maker_sync(engine: Engine) -> Callable[[], Session]:
     session_factory = sessionmaker(engine, expire_on_commit=False, future=True)
 
     return session_factory
-
-# async def main():
-#     engine = await create_engine_async(dev_config.sqlalchemy_str)
-#     await create_db_async(engine)
-#
-#
-# if __name__ == '__main__':
-#     asyncio.run(main())

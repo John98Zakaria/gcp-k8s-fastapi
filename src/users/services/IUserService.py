@@ -1,5 +1,4 @@
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 from general_types.typesafe_representations import Username
 from sqlalchemymodels.DBUserModel import DBUserModel

@@ -5,9 +5,15 @@ from pydantic import BaseSettings, Field
 
 class SQlAlchemyConfiguration(BaseSettings):
     db_engine_str: str = Field(default="sqlite", env="db_engine_str")
-    db_connection_str: str = Field(default="/../devdata/database.db", env="db_connection_str")
+    db_connection_str: str = Field(
+        default="/../devdata/database.db", env="db_connection_str"
+    )
     extra_db_params: str = Field(default="", env="extra_db_params")
-    echo: bool = Field(default=False, description="Log SQL Queries to console", env="echo_db_statements")
+    echo: bool = Field(
+        default=False,
+        description="Log SQL Queries to console",
+        env="echo_db_statements",
+    )
 
     @property
     def sql_alchemy_str(self):

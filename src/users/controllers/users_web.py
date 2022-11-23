@@ -1,7 +1,6 @@
 from functools import partial
 
-from fastapi import Depends
-from fastapi import Response
+from fastapi import Depends, Response
 from fastapi_restful.cbv import cbv
 from fastapi_restful.inferring_router import InferringRouter
 from starlette import status

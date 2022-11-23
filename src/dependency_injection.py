@@ -1,16 +1,17 @@
-from typing import Callable
-from typing import Type
-from typing import TypeVar
+from typing import Callable, Type, TypeVar
 
-from injector import Injector
-from injector import singleton
+from injector import Injector, singleton
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
 from backend_conf import sql_config
-from sqlalchemymodels.connect_db import SessionFactory
-from sqlalchemymodels.connect_db import create_engine_sync
-from sqlalchemymodels.connect_db import create_session_maker_sync
+from sqlalchemymodels.connect_db import (
+    SessionFactory,
+    create_engine_sync,
+    create_session_maker_sync,
+)
+from users.repositories.abstract_user_repository import IUserRepository
+from users.repositories.sql_user_repository import SQLUserRepository
 from users.services.BasicUserService import BasicUserService
 from users.services.IUserService import IUserService
 
@@ -38,8 +39,9 @@ class Injection:
 
     @staticmethod
     def inject():
-        engine = create_engine_sync(sql_config.sqlalchemy_str)
+        engine = create_engine_sync(sql_config.sql_alchemy_str)
         injector.binder.bind(Engine, engine, scope=singleton)
         sync_session_factory: Callable[[], Session] = create_session_maker_sync(engine)
         injector.binder.bind(SessionFactory, sync_session_factory)
+        injector.binder.bind(IUserRepository, SQLUserRepository)
         injector.binder.bind(IUserService, BasicUserService)

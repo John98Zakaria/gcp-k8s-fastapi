@@ -1,15 +1,13 @@
 from typing import Optional
 
 from injector import inject
-from sqlalchemy import delete
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from general_types.typesafe_representations import Username
 from sqlalchemymodels.DBUserModel import DBUserModel
 from users.dtos.create_user_dto import CreateUserDTO
-from users.exceptions.exeptions import UsernameTakenException
-from users.exceptions.exeptions import UserNotFoundException
+from users.exceptions.exeptions import UsernameTakenException, UserNotFoundException
 from users.repositories.abstract_user_repository import IUserRepository
 
 

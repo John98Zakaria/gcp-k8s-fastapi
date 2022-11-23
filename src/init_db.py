@@ -16,8 +16,7 @@ def create_db_sync(engine: Engine):
     BaseMetadata.metadata.create_all(engine)
 
 
-print(f"{sql_config.sql_alchemy_str}=")
-if __name__ == '__main__':
+if __name__ == "__main__":
     register_sql_models()
     sync_engine = create_engine_sync(sql_config.sql_alchemy_str, echo=True)
     create_db_sync(sync_engine)

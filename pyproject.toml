@@ -58,7 +58,7 @@ types-ujson = "^5.5.0"
 
 
 [tool.poetry.group.observability.dependencies]
-elastic-apm = {extras = ["opentelemetry"], version = "^6.13.2"}
+elastic-apm = { extras = ["opentelemetry"], version = "^6.13.2" }
 
 [tool.taskipy.tasks]
 test = { cmd = "pytest src/tests", help = "Runs pytest on the codebase" }
@@ -81,7 +81,7 @@ fail_under = 70
 
 [tool.isort]
 profile = "black"
-force_single_line = true
+force_single_line = false
 lines_after_imports = 2
 
 [tool.mypy]

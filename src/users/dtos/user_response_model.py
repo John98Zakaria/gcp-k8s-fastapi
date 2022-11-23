@@ -1,7 +1,6 @@
 import datetime
 
-from pydantic import BaseModel
-from pydantic import EmailStr
+from pydantic import BaseModel, EmailStr
 
 from general_types.typesafe_representations import Username
 
