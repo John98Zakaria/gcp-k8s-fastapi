@@ -5,7 +5,6 @@ from health.k8s_health import k8s_health
 from kibana_monitoring.setup_kibana import setup_kibana
 from users.controllers.users_web import users_router
 
-
 app = FastAPI()
 
 
@@ -20,8 +19,3 @@ def startup_setup():
 @app.get("/")
 async def get_hello_server() -> str:
     return "Welcome to John's Sever"
-
-
-@app.get("/greet/{name}")
-async def greet_person(name: str) -> str:
-    return f"Hello {name}"

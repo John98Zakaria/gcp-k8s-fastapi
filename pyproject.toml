@@ -82,7 +82,6 @@ fail_under = 70
 [tool.isort]
 profile = "black"
 force_single_line = false
-lines_after_imports = 2
 
 [tool.mypy]
 plugins = ["sqlalchemy.ext.mypy.plugin"]
