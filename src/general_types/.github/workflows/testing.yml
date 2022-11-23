@@ -1,0 +1,42 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Test and Lint code
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: true
+        default: "3.11"
+        type: string
+
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+jobs:
+
+  Linters:
+    name: "Run Linters"
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ inputs.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: python-isort
+        uses: isort/isort-action@v1.1.0
+
+      - name: Black
+        uses: psf/black@stable
+
+      - name: Flake8 action
+        uses: suo/flake8-github-action@v1
+        with:
+          checkName: Linters
