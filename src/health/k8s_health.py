@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 
-
 k8s_health = APIRouter(tags=["Monitoring"])
 
 

@@ -2,7 +2,6 @@ from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import declarative_base
 
-
 BaseMetadata = declarative_base()
 
 

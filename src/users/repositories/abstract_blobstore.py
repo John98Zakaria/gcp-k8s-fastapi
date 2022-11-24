@@ -3,7 +3,6 @@ from typing import Type, TypeVar
 
 from general_types.typesafe_representations import URI
 
-
 T = TypeVar("T")
 
 

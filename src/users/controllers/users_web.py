@@ -13,7 +13,6 @@ from users.dtos.user_response_model import UserResponse
 from users.exceptions.exeptions import UsernameTakenException
 from users.services.IUserService import IUserService
 
-
 users_router = InferringRouter(prefix="/users", tags=["Users"])
 
 

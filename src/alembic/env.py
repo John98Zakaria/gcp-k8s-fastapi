@@ -7,7 +7,6 @@ from backend_conf import sql_config
 from sqlalchemymodels import BaseMetadata
 from sqlalchemymodels.model_registry import register_sql_models
 
-
 register_sql_models()
 
 # this is the Alembic Config object, which provides

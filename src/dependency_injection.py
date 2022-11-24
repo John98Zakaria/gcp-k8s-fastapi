@@ -15,7 +15,6 @@ from users.repositories.sql_user_repository import SQLUserRepository
 from users.services.BasicUserService import BasicUserService
 from users.services.IUserService import IUserService
 
-
 T = TypeVar("T")
 injector = Injector()
 

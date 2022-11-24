@@ -6,7 +6,6 @@ from backend_conf import sql_config
 from sqlalchemymodels.connect_db import create_engine_sync, create_session_maker_sync
 from sqlalchemymodels.DBUserModel import DBTweetModel, DBUserModel
 
-
 sync_engine = create_engine_sync(sql_config.sql_alchemy_str, True)
 session_maker = create_session_maker_sync(sync_engine)
 

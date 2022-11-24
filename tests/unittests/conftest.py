@@ -20,7 +20,6 @@ from sqlalchemymodels.connect_db import (
     create_session_maker_sync,
 )
 
-
 TEST_ROOT = Path(__file__).parent.parent
 
 

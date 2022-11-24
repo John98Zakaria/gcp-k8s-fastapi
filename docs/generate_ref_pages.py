@@ -8,7 +8,6 @@ from typing import Generator, Iterable
 
 import mkdocs_gen_files
 
-
 source_files = sorted(Path("src").rglob("*.py"))
 
 
