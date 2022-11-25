@@ -1,5 +1,10 @@
 FROM python:3.11.0-alpine as BuildingStage
 
+# Python Build Requiremetns
+# psutils: build-base linux-headers
+
+RUN apk update && apk add build-base linux-headers
+
 ARG AppDIR=/home/app/
 
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
@@ -10,7 +15,7 @@ WORKDIR $AppDIR
 
 COPY pyproject.toml poetry.lock ./
 
-RUN poetry install --only main
+RUN poetry install --only main,observability
 
 
 FROM python:3.11.0-alpine as DeploymentStage
@@ -30,6 +35,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 COPY --from=BuildingStage $VIRTUAL_ENV $VIRTUAL_ENV
 
-COPY src/gcp_fastapi .
+COPY src .
 
 CMD ["uvicorn","app:app", "--port","8080","--host","0.0.0.0"]

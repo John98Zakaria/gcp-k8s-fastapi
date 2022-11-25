@@ -1,0 +1,47 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Build FastAPI-Twitter-Clone Container
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_GKE_PROJECT }}
+  GKE_CLUSTER: ${{ secrets.GCP_GKE_CLUSTER }}
+  GKE_ZONE: us-central1-c
+
+jobs:
+
+  build-fastapi-container:
+    name: "Builds FastAPI container"
+    runs-on: ubuntu-latest
+    environment: GCP-GKE
+
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          workload_identity_provider: ${{secrets.GCP_IDENTITY_PROVIDER}}
+          service_account: ${{secrets.GCP_SERVICE_ACCOUNT}}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Setup Artifact Repository
+        run: gcloud auth configure-docker europe-west3-docker.pkg.dev
+
+      - name: Build FastAPI-Clone-Docker-Image
+        run: docker build -f deployment/Dockerfile . -t europe-west3-docker.pkg.dev/elastic-k8s-kluster/basic-repository/fastapi-basic-twitter-clone:0.0.1
+
+      - name: Push Docker Image
+        run: docker push europe-west3-docker.pkg.dev/elastic-k8s-kluster/basic-repository/fastapi-basic-twitter-clone:0.0.1

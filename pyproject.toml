@@ -21,7 +21,7 @@ pydantic = { extras = ["email"], version = "^1.10.2" }
 injector = "^0.20.1"
 aiofiles = "^22.1.0"
 alembic = "^1.8.1"
-
+elastic-apm = { extras = ["opentelemetry"], version = "^6.13.2" }
 
 
 
@@ -55,10 +55,6 @@ types-python-dateutil = "^2.8.19.4"
 types-setuptools = "^65.6.0.0"
 types-ujson = "^5.5.0"
 
-
-
-[tool.poetry.group.observability.dependencies]
-elastic-apm = { extras = ["opentelemetry"], version = "^6.13.2" }
 
 [tool.taskipy.tasks]
 test = { cmd = "pytest src/tests", help = "Runs pytest on the codebase" }
