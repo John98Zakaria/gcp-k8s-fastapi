@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-twitter-clone-deployment
+  namespace: fastapi-twitter-clone
+spec:
+  selector:
+    matchLabels:
+      app: fastapi-twitter-clone
+  template:
+    metadata:
+      labels:
+        app: fastapi-twitter-clone
+    spec:
+      containers:
+        - name: fastapi-twitter-clone
+          image: gcr.io/google-containers/busybox
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-twitter-clone-service
+  namespace: fastapi-twitter-clone
+
+spec:
+  type: ClusterIP
+  selector:
+    app: fastapi-twitter
+  ports:
+  - port: 3000
+    targetPort: 8080
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fastapi-simple-ingress
+  namespace: fastapi-twitter-clone
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.allow-http: "true"
+    cert-manager.io/issuer: letsencrypt-production
+    networking.gke.io/v1beta1.FrontendConfig: redirect-to-https
+    external-dns.alpha.kubernetes.io/hostname: twitter-clone.jsorial.com
+spec:
+  tls:
+   - secretName: web-ssl
+     hosts:
+     - twitter-clone.jsorial.com
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fastapi-twitter-clone-service
+            port:
+              number: 3000
