@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gcp-fastapi"
-version = "0.0.1"
+version = "0.1.0"
 description = "GCP FastAPI K8S Deployment"
 authors = ["John Sorial <contact@jsorial.com>"]
 license = "MIT"
@@ -91,8 +91,12 @@ no_implicit_optional = true
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.0.1"
+version = "0.1.0"
+update_changelog_on_bump = true
 tag_format = "v$version"
+version_files = [
+    "pyproject.toml:version",
+]
 
 [tool.autoflake]
 remove-all-unused-imports = true
