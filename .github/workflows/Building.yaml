@@ -1,10 +1,11 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# This workflow will build the docker image for the twitter cloneimportlib.metadata.version("mypackage")
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: Build FastAPI-Twitter-Clone Container
 
 on:
   push:
+     branches: main
   workflow_dispatch:
   workflow_call:
 
@@ -47,7 +48,7 @@ jobs:
           python-version: "3.11"
 
       - name: Build FastAPI-Clone-Docker-Image
-        run: docker build -f deployment/Dockerfile . -t europe-west3-docker.pkg.dev/elastic-k8s-kluster/basic-repository/fastapi-basic-twitter-clone:0.0.1
+        run: docker build -f deployment/Dockerfile . -t europe-west3-docker.pkg.dev/elastic-k8s-kluster/basic-repository/fastapi-basic-twitter-clone:"$(echo $(python deployment/read_version.py))"
 
       - name: Push Docker Image
-        run: docker push europe-west3-docker.pkg.dev/elastic-k8s-kluster/basic-repository/fastapi-basic-twitter-clone:0.0.1
+        run: docker push europe-west3-docker.pkg.dev/elastic-k8s-kluster/basic-repository/fastapi-basic-twitter-clone:"$(echo $(python deployment/read_version.py))"
