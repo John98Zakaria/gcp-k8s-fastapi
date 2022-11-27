@@ -1,3 +1,12 @@
+## v0.2.0 (2022-11-27)
+
+### Feat
+
+- Application can now report its version.
+- **ci**: Pushing on the main branch will trigger a build.
+- **observability**: Made Kibana optional
+- **ci**: Created Helm Chart for deployment
+
 ## v0.1.0 (2022-11-26)
 
 ### Feat
