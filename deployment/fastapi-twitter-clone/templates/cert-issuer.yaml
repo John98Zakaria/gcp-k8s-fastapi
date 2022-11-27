@@ -1,0 +1,19 @@
+{{ if .Values.certificates.hasCertManager}}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: twitter-clone-certbot-issuer
+  namespace: {{.Values.namespace}}
+spec:
+  acme:
+    server: {{.Values.certificates.letEncryptServer}}
+    email: {{required "You need to provide an email for lets-encrypt" .Values.certificates.letsEncryptEmail}}
+    privateKeySecretRef:
+      name: twitter-clone-certbot-issuer
+    solvers:
+      - http01:
+          ingress:
+            name: fastapi-twitter-ingress
+
+{{end}}
+

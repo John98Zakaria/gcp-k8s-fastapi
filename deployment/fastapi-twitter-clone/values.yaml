@@ -1,0 +1,30 @@
+namespace: "fastapi-twitter-clone2"
+
+certificates:
+  skipTLSSecret: false
+  hasCertManager: true
+  letEncryptServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+  letsEncryptEmail: "contact@jsorial.com"
+  tlsInitialKey: ""
+  tlsInitialCert: ""
+
+
+kibana:
+  useKibana: true
+  KIBANA_SERVICE_NAME: "FastapiTwitterClone"
+  KIBANA_ENVIRONMENT: "K8S"
+  KIBANA_SECRET_TOKEN: ""
+  KIBANA_SERVER_URL: ""
+
+DNS:
+  hasExternalDNS: true
+  domainName: "jsorial.com"
+  subDomainPrefix: "twitter-clone"
+
+deployment:
+  image: "europe-west3-docker.pkg.dev/elastic-k8s-kluster/basic-repository/fastapi-basic-twitter-clone"
+  TAG: "0.0.1"
+
+ingress_config:
+  name: "fastapi-twitter-ingress"
+  use_ssl: "true"

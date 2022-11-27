@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-twitter-clone-deployment
+  namespace: {{.Values.namespace}}
+spec:
+  selector:
+    matchLabels:
+      app: fastapi-twitter-clone
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/cert-issuer.yaml") . | sha256sum }}
+      labels:
+        app: fastapi-twitter-clone
+    spec:
+      containers:
+        - name: fastapi-twitter-clone
+          image: {{ .Values.deployment.image }}:{{ .Values.deployment.TAG}}
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          {{if .Values.kibana.useKibana}}
+          envFrom:
+            - secretRef:
+                name: "kibana-config"
+          {{end}}
+          ports:
+            - containerPort: 8080
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-twitter-clone-service
+  namespace: {{.Values.namespace}}
+
+spec:
+  type: ClusterIP
+  selector:
+    app: fastapi-twitter-clone
+  ports:
+    - port: 3000
+      targetPort: 8080
+
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: redirect-to-https
+  namespace: {{.Values.namespace}}
+spec:
+  redirectToHttps:
+    enabled: {{ .Values.certificates.hasCertManager}}
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fastapi-twitter-ingress
+  namespace: {{.Values.namespace}}
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.allow-http: "true"
+    {{if .Values.certificates.hasCertManager}}
+    cert-manager.io/issuer: twitter-clone-certbot-issuer
+    {{end}}
+    networking.gke.io/v1beta1.FrontendConfig: redirect-to-https
+    external-dns.alpha.kubernetes.io/hostname: {{.Values.DNS.subDomainPrefix}}.{{.Values.DNS.domainName}}
+spec:
+  {{ if .Values.certificates.hasCertManager}}
+  tls:
+    - secretName: fastapi-ssl-secret
+      hosts:
+        - {{.Values.DNS.subDomainPrefix}}.{{.Values.DNS.domainName}}
+  {{ end }}
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-twitter-clone-service
+                port:
+                  number: 3000

@@ -1,0 +1,13 @@
+{{if .Values.kibana.useKibana}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kibana-config
+  namespace: {{.Values.namespace}}
+data:
+  KIBANA_ENVIRONMENT: {{.Values.kibana.KIBANA_ENVIRONMENT | b64enc}}
+  KIBANA_SERVICE_NAME: {{.Values.kibana.KIBANA_SERVICE_NAME | b64enc}}
+  KIBANA_SECRET_TOKEN: {{.Values.kibana.KIBANA_SECRET_TOKEN | b64enc}}
+  KIBANA_SERVER_URL: {{required "You need at least one kibana config" .Values.kibana.KIBANA_SERVER_URL | b64enc}}
+type: Opaque
+{{end}}
