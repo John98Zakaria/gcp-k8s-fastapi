@@ -1,8 +1,15 @@
+import logging
+
 from fastapi import FastAPI
 
 from dependency_injection import Injection
 from health.k8s_health import k8s_health
-from kibana_monitoring.setup_kibana import setup_kibana
+
+try:
+    from kibana_monitoring.setup_kibana import setup_kibana
+except ImportError:
+    logging.warn("Kibana is not installed")
+    setup_kibana = lambda x: x  # noqa: E731
 from users.controllers.users_web import users_router
 
 app = FastAPI()
