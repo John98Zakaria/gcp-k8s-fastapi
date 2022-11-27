@@ -2,6 +2,7 @@ import logging
 
 from fastapi import FastAPI
 
+import version
 from dependency_injection import Injection
 from health.k8s_health import k8s_health
 
@@ -26,3 +27,8 @@ def startup_setup():
 @app.get("/")
 async def get_hello_server() -> str:
     return "Welcome to John's Sever"
+
+
+@app.get("/version")
+async def get_version() -> str:
+    return version.__version__
