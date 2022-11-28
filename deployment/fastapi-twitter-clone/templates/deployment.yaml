@@ -64,12 +64,11 @@ metadata:
   name: fastapi-twitter-ingress
   namespace: {{.Values.namespace}}
   annotations:
-    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.class: "nginx"
     kubernetes.io/ingress.allow-http: "true"
     {{if .Values.certificates.hasCertManager}}
     cert-manager.io/issuer: twitter-clone-certbot-issuer
     {{end}}
-    networking.gke.io/v1beta1.FrontendConfig: redirect-to-https
     external-dns.alpha.kubernetes.io/hostname: {{.Values.DNS.subDomainPrefix}}.{{.Values.DNS.domainName}}
 spec:
   {{ if .Values.certificates.hasCertManager}}
@@ -79,7 +78,8 @@ spec:
         - {{.Values.DNS.subDomainPrefix}}.{{.Values.DNS.domainName}}
   {{ end }}
   rules:
-    - http:
+    - host: {{.Values.DNS.subDomainPrefix}}.{{.Values.DNS.domainName}}
+      http:
         paths:
           - path: /
             pathType: Prefix
