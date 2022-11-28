@@ -1,17 +1,22 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: Test and Lint code
 
 on:
+  workflow_dispatch:
+    inputs:
+      python-version:
+        required: false
+        default: "3.11"
+        description: "Python Version"
+        type: string
+
   workflow_call:
     inputs:
       python-version:
         required: false
         default: "3.11"
+        description: "Python Version"
         type: string
-
-  push:
 
 jobs:
 

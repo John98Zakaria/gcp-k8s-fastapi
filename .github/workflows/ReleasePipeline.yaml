@@ -1,0 +1,32 @@
+name: Deploy on Push
+
+on:
+  push:
+     branches:
+      - main
+  workflow_dispatch:
+env:
+  PROJECT_ID: ${{ secrets.GCP_GKE_PROJECT }}
+  GKE_CLUSTER: ${{ secrets.GCP_GKE_CLUSTER }}
+  GKE_ZONE: us-central1-c
+
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
+jobs:
+#  Lint-Code:
+#    uses: "./.github/workflows/Linting.yaml"
+  Build-Docker-Image:
+#    needs: Lint-Code
+    uses: "./.github/workflows/Building.yaml"
+    # Pass down fake secret
+    #https://github.com/orgs/community/discussions/25238#discussioncomment-3247035
+    secrets: inherit
+
+
+  Deploy-to-K8S:
+    needs: Build-Docker-Image
+    uses: "./.github/workflows/Deploy.yaml"
+    secrets:
+      secrets: inherit
