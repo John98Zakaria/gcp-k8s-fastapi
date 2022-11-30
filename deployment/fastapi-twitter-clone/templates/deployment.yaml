@@ -19,11 +19,11 @@ spec:
           image: {{ .Values.deployment.image }}:{{ .Values.deployment.TAG}}
           resources:
             requests:
-              memory: "32Mi"
-              cpu: "10m"
+              memory: "700Mi"
+              cpu: "1m"
             limits:
-              memory: "128Mi"
-              cpu: "100m"
+              memory: "1Gi"
+              cpu: "10m"
           {{if .Values.kibana.useKibana}}
           envFrom:
             - secretRef:
