@@ -834,6 +834,29 @@ python-versions = ">=3.7"
 "ruamel.yaml" = ">=0.15"
 
 [[package]]
+name = "prometheus-client"
+version = "0.15.0"
+description = "Python client for the Prometheus monitoring system."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+twisted = ["twisted"]
+
+[[package]]
+name = "prometheus-fastapi-instrumentator"
+version = "5.9.1"
+description = "Instrument your FastAPI with Prometheus metrics"
+category = "main"
+optional = false
+python-versions = ">=3.7.0,<4.0.0"
+
+[package.dependencies]
+fastapi = ">=0.38.1,<1.0.0"
+prometheus-client = ">=0.8.0,<1.0.0"
+
+[[package]]
 name = "prompt-toolkit"
 version = "3.0.33"
 description = "Library for building powerful interactive command lines in Python"
@@ -1390,7 +1413,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "6213210cdf45ea417e65a529e9096377f29cb81d991ccbe6780b2bad0c2b0961"
+content-hash = "fc0171072fd23c282ed81d79ce328fc3f6845189b3275c52e3ad160643c55bc8"
 
 [metadata.files]
 aiofiles = [
@@ -1890,6 +1913,14 @@ pre-commit = [
 pre-commit-hooks = [
     {file = "pre_commit_hooks-4.4.0-py2.py3-none-any.whl", hash = "sha256:fc8837335476221ccccda3d176ed6ae29fe58753ce7e8b7863f5d0f987328fc6"},
     {file = "pre_commit_hooks-4.4.0.tar.gz", hash = "sha256:7011eed8e1a25cde94693da009cba76392194cecc2f3f06c51a44ea6ad6c2af9"},
+]
+prometheus-client = [
+    {file = "prometheus_client-0.15.0-py3-none-any.whl", hash = "sha256:db7c05cbd13a0f79975592d112320f2605a325969b270a94b71dcabc47b931d2"},
+    {file = "prometheus_client-0.15.0.tar.gz", hash = "sha256:be26aa452490cfcf6da953f9436e95a9f2b4d578ca80094b4458930e5f584ab1"},
+]
+prometheus-fastapi-instrumentator = [
+    {file = "prometheus-fastapi-instrumentator-5.9.1.tar.gz", hash = "sha256:3651a72f73359a28e8afb0d370ebe3774147323ee2285e21236b229ce79172fc"},
+    {file = "prometheus_fastapi_instrumentator-5.9.1-py3-none-any.whl", hash = "sha256:b5206ea9aa6975a0b07f3bf7376932b8a1b2983164b5abb04878e75ba336d9ed"},
 ]
 prompt-toolkit = [
     {file = "prompt_toolkit-3.0.33-py3-none-any.whl", hash = "sha256:ced598b222f6f4029c0800cefaa6a17373fb580cd093223003475ce32805c35b"},

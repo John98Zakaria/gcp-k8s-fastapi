@@ -1,7 +1,7 @@
 from elasticapm.contrib.starlette import ElasticAPM, make_apm_client
 from fastapi import FastAPI
 
-from kibana_monitoring.kibana_config import kibana_config
+from observability.kibana_monitoring.kibana_config import kibana_config
 
 
 def setup_kibana(app: FastAPI):

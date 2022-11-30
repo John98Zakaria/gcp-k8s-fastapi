@@ -22,6 +22,7 @@ injector = "^0.20.1"
 aiofiles = "^22.1.0"
 alembic = "^1.8.1"
 elastic-apm = { extras = ["opentelemetry"], version = "^6.13.2" }
+prometheus-fastapi-instrumentator = "^5.9.1"
 
 
 

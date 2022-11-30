@@ -5,9 +5,10 @@ from fastapi import FastAPI
 import version
 from dependency_injection import Injection
 from health.k8s_health import k8s_health
+from observability.promethous.setup_promethous import setup_prometheus
 
 try:
-    from kibana_monitoring.setup_kibana import setup_kibana
+    from observability.kibana_monitoring.setup_kibana import setup_kibana
 except ImportError:
     logging.warn("Kibana is not installed")
     setup_kibana = lambda x: x  # noqa: E731
@@ -18,7 +19,8 @@ app = FastAPI()
 
 @app.on_event("startup")
 def startup_setup():
-    setup_kibana(app)
+    setup_prometheus(app)
+    # setup_kibana(app)
     Injection.inject()
     app.include_router(k8s_health)
     app.include_router(users_router)
