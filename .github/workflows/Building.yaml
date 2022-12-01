@@ -1,13 +1,19 @@
-# This workflow will build the docker image for the twitter cloneimportlib.metadata.version("mypackage")
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# This workflow will build the docker image for the twitter
 
 name: Build FastAPI-Twitter-Clone Container
 
 on:
-  push:
-     branches: main
   workflow_dispatch:
   workflow_call:
+    secrets:
+      GCP_IDENTITY_PROVIDER:
+        required: true
+      GCP_SERVICE_ACCOUNT:
+        required: true
+      GCP_GKE_PROJECT:
+        required: true
+      GCP_GKE_CLUSTER:
+        required: true
 
 env:
   PROJECT_ID: ${{ secrets.GCP_GKE_PROJECT }}
@@ -28,6 +34,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: 'Secret Check'
+        run: |
+          if [ "${{secrets.GCP_IDENTITY_PROVIDER}}" == "LOOL" ]; then
+            echo "Big Nice LOOL"
+            exit 1
+          
+          fi
+          if [ "${{secrets.GCP_IDENTITY_PROVIDER}}" == "" ]; then
+              echo "EMTPY"
+              exit 1
+          fi
 
       - id: 'auth'
         name: 'Authenticate to Google Cloud'

@@ -2,7 +2,7 @@ name: Deploy on Push
 
 on:
   push:
-     branches:
+    branches:
       - main
   workflow_dispatch:
 env:
@@ -10,23 +10,26 @@ env:
   GKE_CLUSTER: ${{ secrets.GCP_GKE_CLUSTER }}
   GKE_ZONE: us-central1-c
 
-permissions:
-  contents: 'read'
-  id-token: 'write'
 
 jobs:
-#  Lint-Code:
-#    uses: "./.github/workflows/Linting.yaml"
+  Lint-Code:
+    uses: "./.github/workflows/Linting.yaml"
   Build-Docker-Image:
-#    needs: Lint-Code
     uses: "./.github/workflows/Building.yaml"
-    # Pass down fake secret
-    #https://github.com/orgs/community/discussions/25238#discussioncomment-3247035
-    secrets: inherit
-
-
+    # Passing down secrets manually workarround
+    # https://github.com/orgs/community/discussions/25238#discussioncomment-3247035
+    secrets:
+      GCP_IDENTITY_PROVIDER: ${{ secrets.GCP_IDENTITY_PROVIDER }}
+      GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      GCP_GKE_PROJECT: ${{ secrets.GCP_GKE_PROJECT }}
+      GCP_GKE_CLUSTER: ${{ secrets.GCP_GKE_CLUSTER }}
   Deploy-to-K8S:
     needs: Build-Docker-Image
     uses: "./.github/workflows/Deploy.yaml"
     secrets:
-      secrets: inherit
+      GCP_IDENTITY_PROVIDER: ${{ secrets.GCP_IDENTITY_PROVIDER }}
+      GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      GCP_GKE_PROJECT: ${{ secrets.GCP_GKE_PROJECT }}
+      GCP_GKE_CLUSTER: ${{ secrets.GCP_GKE_CLUSTER }}
+      KIBANA_SERVER_URL: ${{secrets.KIBANA_SERVER_URL}}
+      KIBANA_SECRET_TOKEN: ${{secrets.KIBANA_SECRET_TOKEN}}

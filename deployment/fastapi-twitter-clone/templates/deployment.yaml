@@ -17,6 +17,7 @@ spec:
       containers:
         - name: fastapi-twitter-clone
           image: {{ .Values.deployment.image }}:{{ .Values.deployment.TAG}}
+          imagePullPolicy: Always
           resources:
             requests:
               memory: "700Mi"

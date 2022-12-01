@@ -1,12 +1,23 @@
-# This workflow will build the docker image for the twitter cloneimportlib.metadata.version("mypackage")
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# This workflow will deploy the docker image for the twitter
 
 name: Deploy FastAPI-Twitter-Clone Container
 
 on:
   workflow_dispatch:
   workflow_call:
-  push:
+    secrets:
+      GCP_IDENTITY_PROVIDER:
+        required: true
+      GCP_SERVICE_ACCOUNT:
+        required: true
+      GCP_GKE_PROJECT:
+        required: true
+      GCP_GKE_CLUSTER:
+        required: true
+      KIBANA_SERVER_URL:
+        required: true
+      KIBANA_SECRET_TOKEN:
+        required: true
 env:
   PROJECT_ID: ${{ secrets.GCP_GKE_PROJECT }}
   GKE_CLUSTER: ${{ secrets.GCP_GKE_CLUSTER }}
@@ -51,19 +62,15 @@ jobs:
 
       - name: Deploy FastAPI-Clone-Docker-Image
         env:
-          TLSINITIALKEY: ${{secrets.TLSINITIALKEY}}
-          TLSINITIALCERT: ${{secrets.TLSINITIALCERT}}
           KIBANA_SERVER_URL: ${{secrets.KIBANA_SERVER_URL}}
           KIBANA_SECRET_TOKEN: ${{secrets.KIBANA_SECRET_TOKEN}}
         run: |
           helm upgrade --install fastapi-twitter-clone deployment/fastapi-twitter-clone \
             --set namespace="production-fastapi-twitter-clone" \
-            --set certificates.tlsInitialKey="$TLSINITIALKEY" \
-            --set certificates.tlsInitialCert="$TLSINITIALCERT" \
             --set kibana.KIBANA_SERVER_URL="$KIBANA_SERVER_URL" \
             --set kibana.KIBANA_SECRET_TOKEN="$KIBANA_SECRET_TOKEN" \
             --set kibana.KIBANA_ENVIRONMENT="PRODUCTION-K8S" \
             --set DNS.subDomainPrefix="production.twitter-clone" \
             --set deployment.TAG="$(echo $(python deployment/read_version.py))"
-
-
+          
+          
