@@ -1,7 +1,7 @@
 namespace: "fastapi-twitter-clone2"
 
 certificates:
-  skipTLSSecret: false
+  skipTLSSecret: true
   hasCertManager: true
   letEncryptServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
   letsEncryptEmail: "contact@jsorial.com"
