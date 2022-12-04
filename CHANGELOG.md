@@ -1,11 +1,19 @@
-## v0.2.0 (2022-11-27)
+## v0.3.0 (2022-12-04)
 
 ### Feat
 
+- Added basic prometheus monitoring.
+- Moving to Nginx ingress
+- Lowered deployment requirements.
 - Application can now report its version.
 - **ci**: Pushing on the main branch will trigger a build.
 - **observability**: Made Kibana optional
+- **ci**: Implemented Reusable workflows and composed a deployment pipeline.
 - **ci**: Created Helm Chart for deployment
+
+### Fix
+
+- Backend was requesting too many resources.
 
 ## v0.1.0 (2022-11-26)
 
